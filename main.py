@@ -32,10 +32,11 @@ session.commit()
 print('enter the publisher id number or name:')
 name = input()
 if name.isdigit():
-    id_publisher = int(name)
-    for c in session.query(Publisher).filter(Publisher.id == name).all():
+    publisher_name = int(name)
+    for c in session.query(Publisher).filter(Publisher.id == publisher_name).all():
         print(c)
 else:
     for c in session.query(Publisher).filter(Publisher.name == name).all():
         print(c)
 session.close()
+
