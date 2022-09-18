@@ -38,5 +38,17 @@ if name.isdigit():
 else:
     for c in session.query(Publisher).filter(Publisher.name == name).all():
         print(c)
+
+if name.isdigit():
+    for c in session.query(Shop).join(Stock, Shop.id == Stock.id_shop).join(Book, Book.id == Stock.id_book)\
+        .join(Publisher, Publisher.id == Book.id_publisher).\
+        filter(Publisher.id == f'{name}').all():
+        print(f"Shop {c} sells the publisher's books {name}")
+else:
+    for c in session.query(Shop).join(Stock, Shop.id == Stock.id_shop).join(Book, Book.id == Stock.id_book)\
+        .join(Publisher, Publisher.id == Book.id_publisher).\
+        filter(Publisher.name.like(f"{name}")).all():
+        print(f"Shop {c} sells the publisher's books {name}")
+
 session.close()
 
